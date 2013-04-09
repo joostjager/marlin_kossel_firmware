@@ -742,8 +742,8 @@
 	 #endif
      
      //The encoder and click button
-	#define BTN_EN1 11  
-	#define BTN_EN2 10  
+	#define BTN_EN1 10  
+	#define BTN_EN2 11  
      #ifdef PANELOLU2
 	   #ifdef MELZI
           #define BTN_ENC 29 //the click switch
