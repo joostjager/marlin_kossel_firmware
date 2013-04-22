@@ -516,7 +516,7 @@ static void lcd_implementation_quick_feedback()
 {
   //Buzzer on the Panelolu2 accessed over I2C
   #ifdef PAN_BEEP
-     lcd.buzz(300,4000);
+     lcd.buzz(100,200);
   #endif
   lcd_implementation_update_indicators();
 }
