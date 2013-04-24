@@ -395,14 +395,16 @@
     #define BLEN_A 0
     #define BLEN_B 1
     #define BLEN_C 2
-
-    #define LCD_PINS_RS 16 
-    #define LCD_PINS_ENABLE 17
-    #define LCD_PINS_D4 23
-    #define LCD_PINS_D5 25 
-    #define LCD_PINS_D6 27
-    #define LCD_PINS_D7 29
     
+    #ifndef PANELOLU2
+     #define LCD_PINS_RS 16 
+     #define LCD_PINS_ENABLE 17
+     #define LCD_PINS_D4 23
+     #define LCD_PINS_D5 25 
+     #define LCD_PINS_D6 27
+     #define LCD_PINS_D7 29
+    #endif
+   
     #ifdef REPRAP_DISCOUNT_SMART_CONTROLLER
       #define BEEPER 37
 
@@ -411,6 +413,14 @@
       #define BTN_ENC 35
 
       #define SDCARDDETECT 49
+    #elif defined(PANELOLU2)
+      #define BTN_EN1 47  //reverse if the encoder turns the wrong way.
+	  #define BTN_EN2 43
+      #define BTN_ENC 32
+      #define SDSS 53
+      #define SDCARDDETECT -1
+      #define KILL_PIN 41
+      #define FAN_PIN 45
     #else
       //arduino pin which triggers an piezzo beeper
       #define BEEPER 33	 // Beeper on AUX-4
@@ -735,13 +745,12 @@
 
 /* On some broken versions of the Sanguino libraries the pin definitions are wrong, which then needs SDSS as pin 24. But you better upgrade your Sanguino libraries! See #368. */
 //#define SDSS               24
-
  #ifdef ULTRA_LCD
    #ifdef NEWPANEL
      //we have no buzzer installed
      #define BEEPER -1
      //LCD Pins
-     #ifndef PANELOLU2
+     #ifdef DOGLCD
 			 // Pins for DOGM SPI LCD Support
 			 #define DOGLCD_A0	30
 			 #define DOGLCD_CS	29
@@ -752,28 +761,28 @@
 		     // #define LCD_SCREEN_ROT_90
 			 #define LCD_SCREEN_ROT_180
 		     // #define LCD_SCREEN_ROT_270
-			 #else // standard Hitachi LCD controller
-		#define LCD_PINS_RS        4
-		#define LCD_PINS_ENABLE    17
-		#define LCD_PINS_D4        30
-		#define LCD_PINS_D5        29
-		#define LCD_PINS_D6        28
-		#define LCD_PINS_D7        27
-	 #endif
+		 #else // standard Hitachi LCD controller
+		   #define LCD_PINS_RS        4
+		   #define LCD_PINS_ENABLE    17
+		   #define LCD_PINS_D4        30
+		   #define LCD_PINS_D5        29
+		   #define LCD_PINS_D6        28
+		   #define LCD_PINS_D7        27
+	   #endif
      
      //The encoder and click button
-	#define BTN_EN1 11  //reverse if the encoder turns the wrong way.
-	#define BTN_EN2 10  
+	   #define BTN_EN1 11  //reverse if the encoder turns the wrong way.
+	   #define BTN_EN2 10  
      #ifdef PANELOLU2
-	   #ifdef MELZI
-          #define BTN_ENC 29 //the click switch
-	     #define SDSS 30 //to use the SD card reader on the Panelolu2 rather than the melzi board
+	     #ifdef MELZI
+         #define BTN_ENC 29 //the click switch
+	       #define SDSS 30 //to use the SD card reader on the Panelolu2 rather than the melzi board
+	     #else
+	       #define BTN_ENC 30 //the click switch
+	     #endif
 	   #else
-	      #define BTN_ENC 30 //the click switch
-	   #endif
-	#else
-	   #define BTN_ENC 16  //the click switch
-	#endif //Panelolu2
+	     #define BTN_ENC 16  //the click switch
+	   #endif //Panelolu2
      //not connected to a pin
      #define SDCARDDETECT -1
      
@@ -1123,7 +1132,7 @@
 #define HEATER_1_PIN       -1
 #define HEATER_2_PIN       -1
 #define HEATER_BED_PIN     20  // Bed
-#define FAN_PIN            22  // Fan
+#define FAN_PIN            16  // Fan  //or try 22
 // You may need to change FAN_PIN to 16 because Marlin isn't using fastio.h
 // for the fan and Teensyduino uses a different pin mapping.
 
@@ -1157,7 +1166,33 @@
   #define MISO_PIN         11
   #define MOSI_PIN         10
 #endif
-
+#ifdef ULTRA_LCD
+   #ifdef NEWPANEL
+     //we have no buzzer installed
+     #define BEEPER -1
+     //LCD Pins
+     #ifdef PANELOLU2     
+	     #define BTN_EN1 27  //RX1 - fastio.h pin mapping 27
+	     #define BTN_EN2 26  //TX1 - fastio.h pin mapping 26
+	     #define BTN_ENC 43 //A3 - fastio.h pin mapping 43
+	     #define SDSS   40 //use SD card on Panelolu2 (Teensyduino pin mapping)
+	 #endif //Panelolu2
+     //not connected to a pin
+     #define SDCARDDETECT -1
+     
+     //from the same bit in the RAMPS Newpanel define
+     //encoder rotation values
+     #define encrot0 0
+     #define encrot1 2
+     #define encrot2 3
+     #define encrot3 1
+     
+     #define BLEN_C 2
+     #define BLEN_B 1
+     #define BLEN_A 0
+     
+   #endif //Newpanel
+ #endif //Ultipanel
 #endif  // MOTHERBOARD == 8 (Teensylu) or 81 (Printrboard)
 
 /****************************************************************************************
