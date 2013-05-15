@@ -86,10 +86,52 @@
 // 52 is 200k thermistor - ATC Semitec 204GT-2 (1k pullup)
 // 55 is 100k thermistor - ATC Semitec 104GT-2 (Used in ParCan) (1k pullup)
 
+// only used if ALGEBRA_TEMP is not defined
 #define TEMP_SENSOR_0 -1
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_BED 0
+
+//use RepRapPro Algebraic Temperature calculation rather than
+//the tables - still experimental in this version of Marlin.
+#define ALGEBRA_TEMP 
+
+#ifdef ALGEBRA_TEMP
+#define ABS_ZERO -273.15
+#define AD_RANGE 16383
+
+// Uncomment ONE of the next two lines - the one for the series resistors on your controller (most common is 4700)
+#define SERIAL_R 4700
+//#define SERIAL_R 10000
+
+// EPCOS B57560G104F (the standard 100K one)
+#define E_BETA 4036.0
+#define E_NTC 100000.0
+#define BED_BETA 4036.0
+#define BED_NTC 100000.0
+
+// RS 198-961
+//#define E_BETA 3960.0
+//#define E_NTC 100000.0
+
+// bed thermistor: RS 484-0149; EPCOS B57550G103J
+//#define BED_BETA 3480.0
+//#define BED_NTC 10000.0
+
+// VISHAY BC COMPONENTS - NTCS0603E3104FXT
+//#define BED_BETA 4100.0
+//#define BED_NTC 100000.0
+
+// Rapid 61-0446 ; Semitec 103GT-2 All RepRapPRo Mendels and Thermistors shipped after 1/4/13
+//#define BED_BETA 4126.0
+//#define BED_NTC 10000.0
+
+#define BED_RS SERIAL_R
+#define E_RS SERIAL_R
+#define E_R_INF ( E_NTC*exp(-E_BETA/298.15) )
+#define BED_R_INF ( BED_NTC*exp(-BED_BETA/298.15) )
+
+#endif //#ifdef ALGEBRA_TEMP
 
 // Actual temperature must be close to target for this long before M109 returns success
 #define TEMP_RESIDENCY_TIME 10	// (seconds)
