@@ -11,7 +11,12 @@
   void lcd_setstatuspgm(const char* message);
   void lcd_setalertstatuspgm(const char* message);
   void lcd_reset_alert_level();
-  
+
+#ifdef DOGLCD
+  extern int lcd_contrast;
+  void lcd_setcontrast(uint8_t value);
+#endif
+
   static unsigned char blink = 0;	// Variable for visualisation of fan rotation in GLCD
 
   #define LCD_MESSAGEPGM(x) lcd_setstatuspgm(PSTR(x))
@@ -38,6 +43,9 @@
   extern int absPreheatHPBTemp;
   extern int absPreheatFanSpeed;
     
+  void lcd_buzz(long duration,uint16_t freq);
+  bool lcd_clicked();
+
   #ifdef NEWPANEL
     #define EN_C (1<<BLEN_C)
     #define EN_B (1<<BLEN_B)
@@ -55,6 +63,10 @@
   	  #define EN_REPRAPWORLD_KEYPAD_LEFT (1<<BLEN_REPRAPWORLD_KEYPAD_LEFT)
 
   	  #define LCD_CLICKED ((buttons&EN_C) || (buttons_reprapworld_keypad&EN_REPRAPWORLD_KEYPAD_F1))
+  	  #define REPRAPWORLD_KEYPAD_MOVE_Z_UP (buttons_reprapworld_keypad&EN_REPRAPWORLD_KEYPAD_F2)
+  	  #define REPRAPWORLD_KEYPAD_MOVE_Z_DOWN (buttons_reprapworld_keypad&EN_REPRAPWORLD_KEYPAD_F3)
+  	  #define REPRAPWORLD_KEYPAD_MOVE_X_LEFT (buttons_reprapworld_keypad&EN_REPRAPWORLD_KEYPAD_LEFT)
+  	  #define REPRAPWORLD_KEYPAD_MOVE_X_RIGHT (buttons_reprapworld_keypad&EN_REPRAPWORLD_KEYPAD_RIGHT)
   	  #define REPRAPWORLD_KEYPAD_MOVE_Y_DOWN (buttons_reprapworld_keypad&EN_REPRAPWORLD_KEYPAD_DOWN)
   	  #define REPRAPWORLD_KEYPAD_MOVE_Y_UP (buttons_reprapworld_keypad&EN_REPRAPWORLD_KEYPAD_UP)
   	  #define REPRAPWORLD_KEYPAD_MOVE_HOME (buttons_reprapworld_keypad&EN_REPRAPWORLD_KEYPAD_MIDDLE)
@@ -79,6 +91,7 @@
   FORCE_INLINE void lcd_setstatus(const char* message) {}
   FORCE_INLINE void lcd_buttons_update() {}
   FORCE_INLINE void lcd_reset_alert_level() {}
+  FORCE_INLINE void lcd_buzz(long duration,uint16_t freq) {}
 
   #define LCD_MESSAGEPGM(x) 
   #define LCD_ALERTMESSAGEPGM(x) 
