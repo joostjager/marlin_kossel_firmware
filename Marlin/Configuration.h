@@ -148,7 +148,7 @@
 
 //use RepRapPro Algebraic Temperature calculation rather than
 //the tables - still experimental in this version of Marlin.
-#define ALGEBRA_TEMP 
+//#define ALGEBRA_TEMP 
 
 #ifdef ALGEBRA_TEMP
 #define ABS_ZERO -273.15
