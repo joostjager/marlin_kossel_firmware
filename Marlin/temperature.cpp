@@ -46,15 +46,16 @@ float current_temperature_bed = 0.0;
 #ifdef TEMP_SENSOR_1_AS_REDUNDANT
   int redundant_temperature_raw = 0;
   float redundant_temperature = 0.0;
+#endif
 #ifdef ALGEBRA_TEMP
-int b_beta = BED_BETA;
-int b_resistor = BED_RS;
-long b_thermistor = BED_NTC;
-float b_inf = BED_R_INF;
-int n_beta = E_BETA;
-int n_resistor = E_RS;
-long n_thermistor = E_NTC;
-float n_inf = E_R_INF;
+  int b_beta = BED_BETA;
+  int b_resistor = BED_RS;
+  long b_thermistor = BED_NTC;
+  float b_inf = BED_R_INF;
+  int n_beta = E_BETA;
+  int n_resistor = E_RS;
+  long n_thermistor = E_NTC;
+  float n_inf = E_R_INF;
 #endif
 #ifdef PIDTEMP
   float Kp=DEFAULT_Kp;
