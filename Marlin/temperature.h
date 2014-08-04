@@ -40,16 +40,7 @@ extern float current_temperature_bed;
 #ifdef TEMP_SENSOR_1_AS_REDUNDANT
   extern float redundant_temperature;
 #endif
-#ifdef ALGEBRA_TEMP
-  extern int b_beta;
-  extern int b_resistor;
-  extern long b_thermistor;
-  extern float b_inf;
-  extern int n_beta;
-  extern int n_resistor;
-  extern long n_thermistor;
-  extern float n_inf;
-#endif
+
 #ifdef PIDTEMP
   extern float Kp,Ki,Kd,Kc;
   float scalePID_i(float i);

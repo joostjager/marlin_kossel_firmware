@@ -47,16 +47,6 @@ float current_temperature_bed = 0.0;
   int redundant_temperature_raw = 0;
   float redundant_temperature = 0.0;
 #endif
-#ifdef ALGEBRA_TEMP
-  int b_beta = BED_BETA;
-  int b_resistor = BED_RS;
-  long b_thermistor = BED_NTC;
-  float b_inf = BED_R_INF;
-  int n_beta = E_BETA;
-  int n_resistor = E_RS;
-  long n_thermistor = E_NTC;
-  float n_inf = E_R_INF;
-#endif
 #ifdef PIDTEMP
   float Kp=DEFAULT_Kp;
   float Ki=(DEFAULT_Ki*PID_dT);
@@ -149,13 +139,8 @@ static int bed_maxttemp_raw = HEATER_BED_RAW_HI_TEMP;
   static uint8_t heater_ttbllen_map[EXTRUDERS] = ARRAY_BY_EXTRUDERS( HEATER_0_TEMPTABLE_LEN, HEATER_1_TEMPTABLE_LEN, HEATER_2_TEMPTABLE_LEN );
 #endif
 
-#ifdef ALGEBRA_TEMP
-float analog2temp(int raw, uint8_t e);
-float analog2tempBed(int raw);
-#else
 static float analog2temp(int raw, uint8_t e);
 static float analog2tempBed(int raw);
-#endif
 static void updateTemperaturesFromRawValues();
 
 #ifdef WATCH_TEMP_PERIOD
@@ -259,7 +244,7 @@ void PID_autotune(float temp, int extruder, int ncycles)
               Kp = 0.6*Ku;
               Ki = 2*Kp/Tu;
               Kd = Kp*Tu/8;
-              SERIAL_PROTOCOLLNPGM(" Clasic PID ")
+              SERIAL_PROTOCOLLNPGM(" Clasic PID ");
               SERIAL_PROTOCOLPGM(" Kp: "); SERIAL_PROTOCOLLN(Kp);
               SERIAL_PROTOCOLPGM(" Ki: "); SERIAL_PROTOCOLLN(Ki);
               SERIAL_PROTOCOLPGM(" Kd: "); SERIAL_PROTOCOLLN(Kd);
@@ -451,10 +436,9 @@ void manage_heater()
           //K1 defined in Configuration.h in the PID settings
           #define K2 (1.0-K1)
           dTerm[e] = (Kd * (pid_input - temp_dState[e]))*K2 + (K1 * dTerm[e]);
-          temp_dState[e] = pid_input;
-
           pid_output = constrain(pTerm[e] + iTerm[e] - dTerm[e], 0, PID_MAX);
         }
+        temp_dState[e] = pid_input;
     #else 
           pid_output = constrain(target_temperature[e], 0, PID_MAX);
     #endif //PID_OPENLOOP
@@ -604,23 +588,7 @@ void manage_heater()
   #endif
 }
 
-#ifdef ALGEBRA_TEMP
-// Use algebra to work out temperatures, not tables
-// NB - this assumes all extruders use the same thermistor type.
-
-float analog2tempi(int raw, const float& beta, const float& rs, const float& r_inf)
-{
-   return ABS_ZERO + beta/log( (raw*rs/(AD_RANGE - raw))/r_inf );
-}
-#endif
-
 #define PGM_RD_W(x)   (short)pgm_read_word(&x)
-
-#ifdef ALGEBRA_TEMP
-float analog2temp(int raw, uint8_t e) {
-return analog2tempi(raw, n_beta, n_resistor, n_inf);
-}
-#else
 // Derived from RepRap FiveD extruder::getTemperature()
 // For hot end temperature measurement.
 static float analog2temp(int raw, uint8_t e) {
@@ -667,13 +635,7 @@ static float analog2temp(int raw, uint8_t e) {
   }
   return ((raw * ((5.0 * 100.0) / 1024.0) / OVERSAMPLENR) * TEMP_SENSOR_AD595_GAIN) + TEMP_SENSOR_AD595_OFFSET;
 }
-#endif
 
-#ifdef ALGEBRA_TEMP
-float analog2tempBed(int raw) {
-	return analog2tempi(raw, b_beta, b_resistor, b_inf);
-}
-#else
 // Derived from RepRap FiveD extruder::getTemperature()
 // For bed temperature measurement.
 static float analog2tempBed(int raw) {
@@ -703,7 +665,6 @@ static float analog2tempBed(int raw) {
     return 0;
   #endif
 }
-#endif
 
 /* Called to get the raw values into the the actual temperatures. The raw values are created in interrupt context,
     and this function is called from normal context as it is too slow to run in interrupts and will block the stepper routine otherwise */
