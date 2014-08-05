@@ -396,7 +396,6 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // #define EEPROM_CHITCHAT // T3P3 default is off during calibration. Turn on afterwards if preferred.
 
 // Preheat Constants
-/ Preheat Constants
 #define PLA_PREHEAT_HOTEND_TEMP 200 // T3P3
 #define PLA_PREHEAT_HPB_TEMP 0 // T3P3: Set to 60 - 80C if you have a heated print bed
 #define PLA_PREHEAT_FAN_SPEED 0   // [T3P3 No PWM fan] Insert Value between 0 and 255
