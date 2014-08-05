@@ -826,19 +826,19 @@ static void homeaxis(int axis) {
 void deploy_z_probe() {
   feedrate = homing_feedrate[X_AXIS];
   destination[X_AXIS] = 30; // T3P3 Kossel Mini
-  destination[Y_AXIS] = 95; // T3P3 Kossel Mini
+  destination[Y_AXIS] = 96; // T3P3 Kossel Mini
   destination[Z_AXIS] = 50;
   prepare_move_raw();
 
   feedrate = homing_feedrate[X_AXIS]/10;
-  destination[X_AXIS] = -10; // T3P3 Kossel Mini  
+  destination[X_AXIS] = -15; // T3P3 Kossel Mini  
   prepare_move_raw();
   st_synchronize();
 }
 
 void retract_z_probe() {
   feedrate = homing_feedrate[X_AXIS];
-  destination[Z_AXIS] = current_position[Z_AXIS] + 20;
+  destination[Z_AXIS] = current_position[Z_AXIS] + 40; // T3P3 Kossel Mini 
   prepare_move_raw();
 
   destination[X_AXIS] = -62;
