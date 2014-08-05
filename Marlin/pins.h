@@ -397,7 +397,7 @@
     #define BLEN_C 2
     
     #ifndef PANELOLU2
-    //Changes made to test the Sumpanelone 
+    //Changes made for the PanelOne
      #define LCD_PINS_RS 40 //AUX2 PIN 6
      #define LCD_PINS_ENABLE 42 //AUX2 PIN 8
      #define LCD_PINS_D4 65 //AUX2 PIN 10
