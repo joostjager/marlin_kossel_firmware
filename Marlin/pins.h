@@ -362,7 +362,7 @@
 #else
 #define FAN_PIN            4 // IO pin. Buffer needed
 #endif
-#define PS_ON_PIN          12
+#define PS_ON_PIN          -1 //12 //@t3p3 not used on the mini Kossel right now
 
 #if defined(REPRAP_DISCOUNT_SMART_CONTROLLER) || defined(G3D_PANEL)
 #define KILL_PIN           41

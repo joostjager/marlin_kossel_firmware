@@ -268,6 +268,10 @@ bool Stopped=false;
 bool CooldownNoWait = true;
 bool target_direction;
 
+#ifdef EASY_LOAD
+bool allow_lengthy_extrude_once;		// for load/unload
+#endif
+
 //===========================================================================
 //=============================ROUTINES=============================
 //===========================================================================
@@ -831,7 +835,7 @@ void deploy_z_probe() {
   prepare_move_raw();
 
   feedrate = homing_feedrate[X_AXIS]/10;
-  destination[X_AXIS] = -15; // T3P3 Kossel Mini  
+  destination[X_AXIS] = -7; // T3P3 Kossel Mini  
   prepare_move_raw();
   st_synchronize();
 }
@@ -841,14 +845,14 @@ void retract_z_probe() {
   destination[Z_AXIS] = current_position[Z_AXIS] + 40; // T3P3 Kossel Mini 
   prepare_move_raw();
 
-  destination[X_AXIS] = -62;
-  destination[Y_AXIS] = 65;
-  destination[Z_AXIS] = 25;
+  destination[X_AXIS] = -61;
+  destination[Y_AXIS] = 66;
+  destination[Z_AXIS] = 35;
   prepare_move_raw();
 
   // Move the nozzle below the print surface to push the probe up.
   feedrate = homing_feedrate[Z_AXIS]/10;
-  destination[Z_AXIS] = current_position[Z_AXIS] - 20;
+  destination[Z_AXIS] = current_position[Z_AXIS] - 30;
   prepare_move_raw();
 
   feedrate = homing_feedrate[Z_AXIS];

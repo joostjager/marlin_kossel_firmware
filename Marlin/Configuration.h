@@ -9,7 +9,7 @@
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
 #define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
-#define STRING_CONFIG_H_AUTHOR "(jcrocholl, Mini Kossel, T3P3 20140805)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(jcrocholl, Mini Kossel, T3P3 20140920)" // Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
 // This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -86,7 +86,7 @@
 #define DELTA_DIAGONAL_ROD 215.0 // mm (T3P3, default 215)
 
 // Horizontal offset from middle of printer to smooth rod center.
-#define DELTA_SMOOTH_ROD_OFFSET 145.0 // mm  (T3P3, default 145)
+#define DELTA_SMOOTH_ROD_OFFSET 145.1 // mm  (T3P3, default 145) //145.1 = redkossel
 
 // Horizontal offset of the universal joints on the end effector.
 #define DELTA_EFFECTOR_OFFSET 19.9 // mm (T3P3, default 19.9)
@@ -350,7 +350,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // For deltabots this means top and center of the cartesian print volume.
 #define MANUAL_X_HOME_POS 0
 #define MANUAL_Y_HOME_POS 0
-#define MANUAL_Z_HOME_POS 250  // For delta: Distance between nozzle and print surface after homing.
+#define MANUAL_Z_HOME_POS 236.9 // For delta: Distance between nozzle and print surface after homing.
 
 #define AUTOLEVEL_GRID 22  // Distance between autolevel Z probing points, should be less than print surface radius/3.
 
@@ -358,11 +358,11 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
 #define HOMING_FEEDRATE {100*60, 100*60, 100*60, 0}  // set the homing speeds (mm/min) (derated from 9000 to 6000)
 
-#define Z_PROBE_OFFSET {0, 15, -4.80, 0}  // X, Y, Z, E distance between hotend nozzle and deployed bed leveling probe. // T3P3. defaults {0, 13, -4.8, 0 }
+#define Z_PROBE_OFFSET {1.2, 17.60, -4.80, 0}  // X, Y, Z, E distance between hotend nozzle and deployed bed leveling probe. // T3P3. defaults {0, 13, -7.15, 0 }
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 80, 650} // T3P3 for 20T pulleys & RRP mini geared extruder
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 80, 663} // T3P3 for 20T pulleys & RRP mini geared extruder
 #define DEFAULT_MAX_FEEDRATE          {1000, 1000, 1000, 800}    // (mm/sec) T3P3: defaults {200, 200, 200, 200} 
 #define DEFAULT_MAX_ACCELERATION      {9000,9000,9000,9000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
@@ -390,18 +390,29 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // M501 - reads parameters from EEPROM (if you need reset them after you changed them temporarily).
 // M502 - reverts to the default "factory settings".  You still need to store them in EEPROM afterwards if you want to.
 //define this to enable eeprom support
-// #define EEPROM_SETTINGS // T3P3 default is off during calibration. Turn on afterwards if preferred.
+ #define EEPROM_SETTINGS // T3P3 default is off during calibration. Turn on afterwards if preferred.
 //to disable EEPROM Serial responses and decrease program space by ~1700 byte: comment this out:
 // please keep turned on if you can.
-// #define EEPROM_CHITCHAT // T3P3 default is off during calibration. Turn on afterwards if preferred.
+ #define EEPROM_CHITCHAT // T3P3 default is off during calibration. Turn on afterwards if preferred.
 
+ //Filament management (added by T3P3 based on https://github.com/lajos/Marlin/blob/tantillus/Marlin)
+#define EASY_LOAD					
+#define BOWDEN_LENGTH 560
+#define LCD_PURGE_LENGTH 3				
+#define LCD_RETRACT_LENGTH 3			
+#define LCD_PURGE_FEEDRATE 200		
+#define LCD_RETRACT_FEEDRATE 600
+#define LCD_LOAD_FEEDRATE 500		
+#define LCD_UNLOAD_FEEDRATE 500
+ 
+ 
 // Preheat Constants
-#define PLA_PREHEAT_HOTEND_TEMP 200 // T3P3
-#define PLA_PREHEAT_HPB_TEMP 0 // T3P3: Set to 60 - 80C if you have a heated print bed
+#define PLA_PREHEAT_HOTEND_TEMP 195 // T3P3
+#define PLA_PREHEAT_HPB_TEMP 70 // T3P3: Set to 60 - 80C if you have a heated print bed
 #define PLA_PREHEAT_FAN_SPEED 0   // [T3P3 No PWM fan] Insert Value between 0 and 255
 
 #define ABS_PREHEAT_HOTEND_TEMP 245 // T3P3
-#define ABS_PREHEAT_HPB_TEMP 0 // T3P3: Set to 120C if you have a heated print bed
+#define ABS_PREHEAT_HPB_TEMP 120 // T3P3: Set to 120C if you have a heated print bed
 #define ABS_PREHEAT_FAN_SPEED 0   // [T3P3 No PWM fan] Insert Value between 0 and 255
 
 //LCD and SD support
