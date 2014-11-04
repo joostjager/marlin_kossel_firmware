@@ -457,8 +457,8 @@
         #define BLEN_REPRAPWORLD_KEYPAD_LEFT 7
       #else
         #ifdef PANELONE
-          #define BTN_EN1 63 //AUX2 PIN 4 
-          #define BTN_EN2 59 //AUX2 PIN 3
+          #define BTN_EN1 59 //AUX2 PIN 3 
+          #define BTN_EN2 63 //AUX2 PIN 4
           #define BTN_ENC 49 //AUX3 PIN 7
         #else
           #define BTN_EN1 37
