@@ -9,7 +9,7 @@
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
 #define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
-#define STRING_CONFIG_H_AUTHOR "(jcrocholl, Mini Kossel, T3P3 20140805)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(jcrocholl, Mini Kossel, T3P3 20140920)" // Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
 // This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -168,7 +168,7 @@
 #define HEATER_0_MAXTEMP 275
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
-#define BED_MAXTEMP 130 // T3P3 default 150
+#define BED_MAXTEMP 150 // T3P3 default 150
 
 // If your bed has low resistance e.g. .6 ohm and throws the fuse you can duty cycle it to reduce the
 // average current. The value should be an integer and the heat bed will be turned on for 1 interval of
@@ -390,18 +390,29 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // M501 - reads parameters from EEPROM (if you need reset them after you changed them temporarily).
 // M502 - reverts to the default "factory settings".  You still need to store them in EEPROM afterwards if you want to.
 //define this to enable eeprom support
-// #define EEPROM_SETTINGS // T3P3 default is off during calibration. Turn on afterwards if preferred.
+ #define EEPROM_SETTINGS // T3P3 default is off during calibration. Turn on afterwards if preferred.
 //to disable EEPROM Serial responses and decrease program space by ~1700 byte: comment this out:
 // please keep turned on if you can.
-// #define EEPROM_CHITCHAT // T3P3 default is off during calibration. Turn on afterwards if preferred.
+ #define EEPROM_CHITCHAT // T3P3 default is off during calibration. Turn on afterwards if preferred.
 
+ //Filament management (added by T3P3 based on https://github.com/lajos/Marlin/blob/tantillus/Marlin)
+#define EASY_LOAD					
+#define BOWDEN_LENGTH 560
+#define LCD_PURGE_LENGTH 3				
+#define LCD_RETRACT_LENGTH 3			
+#define LCD_PURGE_FEEDRATE 200		
+#define LCD_RETRACT_FEEDRATE 600
+#define LCD_LOAD_FEEDRATE 500		
+#define LCD_UNLOAD_FEEDRATE 500
+ 
+ 
 // Preheat Constants
-#define PLA_PREHEAT_HOTEND_TEMP 200 // T3P3
-#define PLA_PREHEAT_HPB_TEMP 0 // T3P3: Set to 60 - 80C if you have a heated print bed
+#define PLA_PREHEAT_HOTEND_TEMP 195 // T3P3
+#define PLA_PREHEAT_HPB_TEMP 70 // T3P3: Set to 60 - 80C if you have a heated print bed
 #define PLA_PREHEAT_FAN_SPEED 0   // [T3P3 No PWM fan] Insert Value between 0 and 255
 
 #define ABS_PREHEAT_HOTEND_TEMP 245 // T3P3
-#define ABS_PREHEAT_HPB_TEMP 0 // T3P3: Set to 120C if you have a heated print bed
+#define ABS_PREHEAT_HPB_TEMP 120 // T3P3: Set to 120C if you have a heated print bed
 #define ABS_PREHEAT_FAN_SPEED 0   // [T3P3 No PWM fan] Insert Value between 0 and 255
 
 //LCD and SD support
@@ -410,9 +421,13 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define SDSUPPORT // Enable SD Card Support in Hardware Console
 //#define SDSLOW // Use slower SD transfer mode (not normally needed - uncomment if you're getting volume init error)
 
-#define ULTIMAKERCONTROLLER //as available from the ultimaker online store.// T3P3 default for PanelOne. Also see changes in pins.h lines 400 and 447
+//#define ULTIMAKERCONTROLLER //as available from the ultimaker online store.
 
 //#define ULTIPANEL  //the ultipanel as on thingiverse
+
+//The Think3dPrint3d Panelone
+// http://reprap.org/wiki/PanelOne
+#define PANELONE
 
 // The MaKr3d Makr-Panel with graphic controller and SD support
 // http://reprap.org/wiki/MaKr3d_MaKrPanel
@@ -458,6 +473,11 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #endif
 
 #if defined(ULTIMAKERCONTROLLER) || defined(REPRAP_DISCOUNT_SMART_CONTROLLER) || defined(G3D_PANEL)
+ #define ULTIPANEL
+ #define NEWPANEL
+#endif
+
+#if defined (PANELONE)
  #define ULTIPANEL
  #define NEWPANEL
 #endif

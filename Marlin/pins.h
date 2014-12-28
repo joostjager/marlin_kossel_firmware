@@ -362,7 +362,7 @@
 #else
 #define FAN_PIN            4 // IO pin. Buffer needed
 #endif
-#define PS_ON_PIN          12
+#define PS_ON_PIN          -1 //12 //@t3p3 not used on the mini Kossel right now
 
 #if defined(REPRAP_DISCOUNT_SMART_CONTROLLER) || defined(G3D_PANEL)
 #define KILL_PIN           41
@@ -396,14 +396,26 @@
     #define BLEN_B 1
     #define BLEN_C 2
     
-    #ifndef PANELOLU2
+    #ifndef LCD_I2C_PANELOLU2
     //Changes made for the PanelOne
-     #define LCD_PINS_RS 40 //AUX2 PIN 6
-     #define LCD_PINS_ENABLE 42 //AUX2 PIN 8
-     #define LCD_PINS_D4 65 //AUX2 PIN 10
-     #define LCD_PINS_D5 66 //AUX2 PIN 9
-     #define LCD_PINS_D6 44 //AUX2 PIN 7
-     #define LCD_PINS_D7 64 //AUX2 PIN 5
+     #ifdef PANELONE
+       #define LCD_PINS_RS 40 //AUX2 PIN 6
+       #define LCD_PINS_ENABLE 42 //AUX2 PIN 8
+       #define LCD_PINS_D4 65 //AUX2 PIN 10
+       #define LCD_PINS_D5 66 //AUX2 PIN 9
+       #define LCD_PINS_D6 44 //AUX2 PIN 7
+       #define LCD_PINS_D7 64 //AUX2 PIN 5 
+       #define BTN_EN1 63 //AUX2 PIN 4 
+       #define BTN_EN2 59 //AUX2 PIN 3
+       #define BTN_ENC 49 //AUX3 PIN 7
+     #else
+       #define LCD_PINS_RS 16 
+       #define LCD_PINS_ENABLE 17
+       #define LCD_PINS_D4 23
+       #define LCD_PINS_D5 25 
+       #define LCD_PINS_D6 27
+       #define LCD_PINS_D7 29
+     #endif    
     #endif
    
     #ifdef REPRAP_DISCOUNT_SMART_CONTROLLER
@@ -414,7 +426,7 @@
       #define BTN_ENC 35
 
       #define SDCARDDETECT 49
-    #elif defined(PANELOLU2)
+    #elif defined(LCD_I2C_PANELOLU2)
       #define BTN_EN1 47  //reverse if the encoder turns the wrong way.
 	    #define BTN_EN2 43
       #define BTN_ENC 32
@@ -443,12 +455,17 @@
         #define BLEN_REPRAPWORLD_KEYPAD_MIDDLE 5
         #define BLEN_REPRAPWORLD_KEYPAD_DOWN 6
         #define BLEN_REPRAPWORLD_KEYPAD_LEFT 7
-	  #else
-        //Changes made to test the Sumpanelone 
-        #define BTN_EN1 63 //AUX2 PIN 4 //may have to swap this and BTN_EN2 to get clockwise=+ on encoder
-        #define BTN_EN2 59 //AUX2 PIN 3
-        #define BTN_ENC 49 //AUX3 PIN 7
-      #endif
+      #else
+        #ifdef PANELONE
+          #define BTN_EN1 59 //AUX2 PIN 3 
+          #define BTN_EN2 63 //AUX2 PIN 4
+          #define BTN_ENC 49 //AUX3 PIN 7
+        #else
+          #define BTN_EN1 37
+          #define BTN_EN2 35
+          #define BTN_ENC 31  //the click
+        #endif //PANELONE
+      #endif //REPRAPWORLD_KEYPAD
 
       #ifdef G3D_PANEL
         #define SDCARDDETECT 49
