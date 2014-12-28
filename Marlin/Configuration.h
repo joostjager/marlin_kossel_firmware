@@ -86,7 +86,7 @@
 #define DELTA_DIAGONAL_ROD 215.0 // mm (T3P3, default 215)
 
 // Horizontal offset from middle of printer to smooth rod center.
-#define DELTA_SMOOTH_ROD_OFFSET 145.0 // mm  (T3P3, default 145)
+#define DELTA_SMOOTH_ROD_OFFSET 144.3 // mm  (T3P3, default 145)
 
 // Horizontal offset of the universal joints on the end effector.
 #define DELTA_EFFECTOR_OFFSET 19.9 // mm (T3P3, default 19.9)
@@ -143,7 +143,7 @@
 #define TEMP_SENSOR_0 7 // T3P3 1.75mm J-head with Honeywell thermistor
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_BED 11 // T3P3 alu heatbed with Kapton heater and 3950 thermistor
+#define TEMP_SENSOR_BED 11 // Set to 11 for T3P3 alu heatbed with Kapton heater and 3950 thermistor
 
 // This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
@@ -350,7 +350,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // For deltabots this means top and center of the cartesian print volume.
 #define MANUAL_X_HOME_POS 0
 #define MANUAL_Y_HOME_POS 0
-#define MANUAL_Z_HOME_POS 250  // For delta: Distance between nozzle and print surface after homing.
+#define MANUAL_Z_HOME_POS 229.2  // For delta: Distance between nozzle and print surface after homing.T3P3:default is 250
 
 #define AUTOLEVEL_GRID 22  // Distance between autolevel Z probing points, should be less than print surface radius/3.
 
@@ -358,11 +358,11 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
 #define HOMING_FEEDRATE {100*60, 100*60, 100*60, 0}  // set the homing speeds (mm/min) (derated from 9000 to 6000)
 
-#define Z_PROBE_OFFSET {0, 15, -4.80, 0}  // X, Y, Z, E distance between hotend nozzle and deployed bed leveling probe. // T3P3. defaults {0, 13, -4.8, 0 }
+#define Z_PROBE_OFFSET {1.2, 13, -4.1, 0}  // X, Y, Z, E distance between hotend nozzle and deployed bed leveling probe. // T3P3. defaults {0, 13, -4.8, 0 }
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 80, 650} // T3P3 for 20T pulleys & RRP mini geared extruder
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 80, 643} // T3P3 for 20T pulleys & RRP mini geared extruder
 #define DEFAULT_MAX_FEEDRATE          {1000, 1000, 1000, 800}    // (mm/sec) T3P3: defaults {200, 200, 200, 200} 
 #define DEFAULT_MAX_ACCELERATION      {9000,9000,9000,9000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 

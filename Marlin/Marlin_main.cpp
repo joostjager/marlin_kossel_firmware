@@ -841,8 +841,8 @@ void retract_z_probe() {
   destination[Z_AXIS] = current_position[Z_AXIS] + 40; // T3P3 Kossel Mini 
   prepare_move_raw();
 
-  destination[X_AXIS] = -62;
-  destination[Y_AXIS] = 65;
+  destination[X_AXIS] = -63.3;
+  destination[Y_AXIS] = 63;
   destination[Z_AXIS] = 25;
   prepare_move_raw();
 
