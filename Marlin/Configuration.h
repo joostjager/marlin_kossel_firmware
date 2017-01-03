@@ -192,9 +192,9 @@
 // If you are using a preconfigured hotend then you can use one of the value sets by uncommenting it
 
 // T3P3 1.75mm JHead with Honeywell
-    #define  DEFAULT_Kp 31.32
-    #define  DEFAULT_Ki 2.73
-    #define  DEFAULT_Kd 89.80
+    #define  DEFAULT_Kp 25.23
+    #define  DEFAULT_Ki  1.66
+    #define  DEFAULT_Kd 95.90
 
 // Ultimaker
 //    #define  DEFAULT_Kp 22.2
